@@ -15,9 +15,10 @@ Future<void> main() async {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return  MaterialApp(
+    return  const MaterialApp(
 
       home: MyHomePage(),
+      debugShowCheckedModeBanner: false,
     );
   }
 }
@@ -102,6 +103,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   if(light==false)
                     {
                       On="OFF";
+                      _value=0;
                     }
                   if(light==true)
                   {
@@ -134,7 +136,7 @@ class _MyHomePageState extends State<MyHomePage> {
             Container(
              child:Padding(
              padding:
-             EdgeInsetsDirectional.fromSTEB(0, 0, 0, 10),
+             const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 10),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 mainAxisSize: MainAxisSize.max,
@@ -231,6 +233,104 @@ class _MyHomePageState extends State<MyHomePage> {
                     ]
                 )
 
+
+            ),
+
+            Container(
+              child: Padding(
+                padding:
+                const EdgeInsetsDirectional.fromSTEB(0, 0, 0,0),
+                child:Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.max,
+                    children: const [
+
+                      Text("Color",
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+
+                        ),)
+
+                    ]
+
+
+                )
+              )
+
+            ),
+
+            Container(
+              decoration: BoxDecoration(color: Colors.white54,borderRadius:  BorderRadius.circular(16.0),),
+              height: 30,
+              margin: const EdgeInsets.all(30.0),
+
+              child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  mainAxisSize: MainAxisSize.max,
+                  children: <Widget> [
+                    FlatButton(
+                      child: const Text(""),
+                      color: Colors.red,
+                      height: 20,
+                      minWidth: 10,
+                      onPressed: () {
+                        if(light==true)
+                        {
+                          dbR.child("Light").set({"Switch": "red"});
+                        }
+
+                      },
+                    ),
+
+                    FlatButton(
+                      child: const Text(""),
+                      color: Colors.green,
+                      height: 20,
+                      minWidth: 10,
+                      onPressed: () {
+
+                        if(light==true)
+                        {
+                          dbR.child("Light").set({"Switch": "green"});
+                        }
+
+                      },
+                    ),
+
+                    FlatButton(
+                      child: const Text(""),
+                      color: Colors.blue,
+                      height: 20,
+                      minWidth: 10,
+                      onPressed: () {
+
+                        if(light==true)
+                        {
+                          dbR.child("Light").set({"Switch": "blue"});
+                        }
+
+                      },
+                    ),
+
+                    FlatButton(
+                      child: const Text(""),
+                      color: Colors.yellow,
+                      height: 20,
+                      minWidth: 10,
+                      onPressed: () {
+
+                        if(light==true)
+                        {
+                          dbR.child("Light").set({"Switch": "yellow"});
+                        }
+
+                      },
+                    ),
+
+                  ]
+
+              ),
 
             )
 
