@@ -60,14 +60,11 @@ flutter:
   uses-material-design: true
 
   assets:
-    - images/lamp.jpg
-    - images/light-on.png
-    - images/light-off.png
-    - images/power.jpg
-    - images/connected.png
     - images/power2.png
     - images/background.jpg
-    - images/lightred.png
+    - images/light-on.png
+    - images/light-off.png
+
 
 
 

@@ -1,99 +1,91 @@
+// ignore_for_file: avoid_unnecessary_containers
+
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-// ignore: import_of_legacy_library_into_null_safe
 import 'package:firebase_database/firebase_database.dart';
 
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
-
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
-        primarySwatch: Colors.blue,
-      ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+    return  MaterialApp(
+
+      home: MyHomePage(),
     );
   }
 }
 
+
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
+  const MyHomePage({Key? key}) : super(key: key);
 
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
 
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
-  final String title;
-
+  // @override
+  // State<MyHomePage> createState() => _MyHomePageState();
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<StatefulWidget> createState() {
+    return _MyHomePageState();
+  }
 }
+
 
 class _MyHomePageState extends State<MyHomePage> {
   String On="OFF";
   bool light=false;
+  int _value = 0;
   final dbR= FirebaseDatabase.instance.reference();
+
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
+
     return Scaffold(
       appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
+        leading: Icon(Icons.arrow_back, color: Colors.black,),
+        title: const Text("Smart Bulb",
+        style: TextStyle(
+        color: Colors.black,
+        fontWeight: FontWeight.bold,
+        fontSize:24
+          ),),
+        backgroundColor: Colors.blue,
+        centerTitle: true,
       ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
+      body: Container(
+        alignment: Alignment.topCenter,
+        padding: const EdgeInsets.all(20),
+        decoration: const BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage("images/background.jpg"),
+                fit: BoxFit.cover)),
+
+
         child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Invoke "debug painting" (press "p" in the console, choose the
-          // "Toggle Debug Paint" action from the Flutter Inspector in Android
-          // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-          // to see the wireframe for each widget.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          mainAxisAlignment: MainAxisAlignment.center,
+         // mainAxisAlignment: MainAxisAlignment.topCenter,
           children: <Widget>[
+
+            Container(
+              child:Padding(
+                  padding:
+            const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 30),
+              child:light ? Image.asset( 'images/light-on.png',    height: 200,    width: 200, )
+                  : Image.asset( 'images/light-off.png',    height: 200,    width: 200, ),
+             // child:Image.asset("images/light-on.png",height: 200,    width: 200,),
+
+            ),
+            ),
+
+
             FlatButton(
-              child:Text("LedON"),
-              color: Colors.blue,
+              child:Image.asset("images/power2.png",height: 50,    width: 50,),
+             // child:Text("LedON"),
+              //color: Colors.blue,
               onPressed: (){
                 if (light) {
                   //if ledstatus is true, then turn off the led
@@ -113,35 +105,140 @@ class _MyHomePageState extends State<MyHomePage> {
                     }
                   if(light==true)
                   {
-                    On="ON";
+                     On="ON";
                   }
                 });
 
-                // if(light=false) {
-                //   dbR.child("Light").set({"Switch": "OFF"});
-                //   setState(() {
-                //     On = "OFF";
-                //     light=true;
-                //   });
-                //   //light=true;
-                // }
-                // if(light=true)
-                //   {
-                //     dbR.child("Light").set({"Switch": "ON"});
-                //     setState(() {
-                //       On = "ON";
-                //       light=false;
-                //     });
-                //
-                //    // light=false;
-                //   }
+
               },
             ),
+
+            Container(
+              child:Padding(
+                  padding:
+                  const EdgeInsetsDirectional.fromSTEB(0, 10, 0, 10),
+                  child:light ? const Text("BULB IS ON",style: TextStyle(
+                    fontSize:14.0,
+                    fontWeight:FontWeight.bold,
+                    color: Colors.black,
+                  )) : const Text("BULB IS OFF",style: TextStyle(
+                    fontSize:14.0,
+                    fontWeight:FontWeight.bold,
+                    color: Colors.black,
+                  ),)
+
+
+              ),
+            ),
+
+            Container(
+             child:Padding(
+             padding:
+             EdgeInsetsDirectional.fromSTEB(0, 0, 0, 10),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisSize: MainAxisSize.max,
+                  children: const <Widget>[
+                    Text("Brightness",
+                    style: TextStyle(
+
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+
+                    ),)
+
+                  ]
+
+              ),
+
+              ),
+            ),
+
+            Container(
+
+                child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      const Icon(
+                        Icons.lightbulb_outline,
+                        color: Colors.amber,
+                        size: 30,
+                      ),
+                      Expanded(
+                        child: Slider(
+                            value: _value.toDouble(),
+                            min: 0.0,
+                            max: 100.0,
+                            divisions: 10,
+                            activeColor: Colors.black,
+                            inactiveColor: Colors.white,
+                            label: '${_value.round()}',
+                            onChanged: (double newValue) {
+                              setState(() {
+                                _value = newValue.round();
+                                if(light==true) {
+                                  if (_value == 0) {
+                                    dbR.child("Light").set({"Switch": "0"});
+                                  }
+                                  if (_value == 10) {
+                                    dbR.child("Light").set({"Switch": "10"});
+                                  }
+                                  if (_value == 20) {
+                                    dbR.child("Light").set({"Switch": "20"});
+                                  }
+                                  if (_value == 30) {
+                                    dbR.child("Light").set({"Switch": "30"});
+                                  }
+                                  if (_value == 40) {
+                                    dbR.child("Light").set({"Switch": "40"});
+                                  }
+                                  if (_value == 50) {
+                                    dbR.child("Light").set({"Switch": "50"});
+                                  }
+                                  if (_value == 60) {
+                                    dbR.child("Light").set({"Switch": "60"});
+                                  }
+                                  if (_value == 70) {
+                                    dbR.child("Light").set({"Switch": "70"});
+                                  }
+                                  if (_value == 80) {
+                                    dbR.child("Light").set({"Switch": "80"});
+                                  }
+                                  if (_value == 90) {
+                                    dbR.child("Light").set({"Switch": "90"});
+                                  }
+                                  if (_value == 100) {
+                                    dbR.child("Light").set({"Switch": "100"});
+                                  }
+                                }
+
+                              });
+                            },
+                            //label: 'Bulb Brigtness',
+                            semanticFormatterCallback: (double newValue) {
+                              return '${newValue.round()} dollars';
+                            }
+
+                        ),
+
+                      ),
+                      const Icon(
+                        Icons.lightbulb,
+                        color: Colors.amber,
+                        size: 30,
+                      ),
+                    ]
+                )
+
+
+            )
+
 
           ],
         ),
       ),
-    // This trailing comma makes auto-formatting nicer for build methods.
+
     );
   }
 }
