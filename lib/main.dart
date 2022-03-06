@@ -45,6 +45,7 @@ class _MyHomePageState extends State<MyHomePage> {
   int _value = 0;
   final dbR= FirebaseDatabase.instance.reference();
 
+
   @override
   Widget build(BuildContext context) {
 
@@ -77,8 +78,8 @@ class _MyHomePageState extends State<MyHomePage> {
               child:Padding(
                   padding:
             const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 30),
-              child:light ? Image.asset( 'images/light-on.png',    height: 200,    width: 200, )
-                  : Image.asset( 'images/light-off.png',    height: 200,    width: 200, ),
+              child:light ? Image.asset( 'images/light-on.png',    height: 250,    width: 250, )
+                  : Image.asset( 'images/light-off.png',    height: 250,    width: 250, ),
              // child:Image.asset("images/light-on.png",height: 200,    width: 200,),
 
             ),
