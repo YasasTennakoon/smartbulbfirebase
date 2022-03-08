@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
 
 import 'HomePage.dart';
+import 'SchedulerPage.dart';
 
 
 Future<void> main() async {
@@ -45,6 +46,19 @@ class _MyHomePageState extends State<MyHomePage> {
   int _value = 0;
   final dbR= FirebaseDatabase.instance.reference();
 
+  _onTap(int index) {
+    Navigator.of(context)
+        .push(MaterialPageRoute<Null>(builder: (BuildContext context) {
+      return _children[index];
+    }));}
+
+
+  final List<Widget> _children = [
+    MyApp(),
+    SchedulerPage()
+
+  ];
+  final int _currentIndex = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -335,13 +349,65 @@ class _MyHomePageState extends State<MyHomePage> {
 
               ),
 
-            )
-
+            ),
 
           ],
         ),
-      ),
+      ),//Main
 
+
+      bottomNavigationBar: BottomAppBar(
+        color: Colors.blue,
+        child: Row(
+           mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children:  <Widget>[
+
+            IconButton(
+              icon: const Icon(Icons.home),
+              color: Colors.black,
+              iconSize: 30.0,
+              onPressed: () {
+
+               Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => MyApp()),
+              );
+
+            },
+              ),
+
+           IconButton(
+              icon: const Icon(Icons.schedule_outlined),
+              color: Colors.black,
+              iconSize: 30.0,
+          onPressed: () {
+
+           Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => SchedulerPage()),
+              );
+             },
+    ),
+
+              IconButton(
+                icon: const Icon(Icons.settings),
+                color: Colors.black,
+                iconSize: 30.0,
+                onPressed: () {
+
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => SchedulerPage()),
+                  );
+                },
+              ),
+
+    ]
+        )
+      ),
     );
+
+
+
   }
 }
