@@ -25,11 +25,6 @@ class schedulerpage extends StatefulWidget {
 
 class _schedulerpage extends State<schedulerpage> {
 
-  final List<Widget> _children = [
-    MyApp(),
-    SchedulerPage()
-
-  ];
   final int _currentIndex = 0;
   @override
   Widget build(BuildContext context) {
